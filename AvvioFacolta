@@ -1,0 +1,114 @@
+package corso2;
+import java.util.Scanner;
+public class AvvioFacolta {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		 Facolta facolta = new Facolta();
+	        Scanner scanner = new Scanner(System.in);
+	        int scelta;
+	        
+	        Studente studente1 = new Studente("Luca", "Bianchi", 101);
+	        studente1.aggiungiEsame(new Esame("Matematica", 28));
+	        studente1.aggiungiEsame(new Esame("Fisica", 30));
+
+	        Studente studente2 = new Studente("Anna", "Rossi", 102);
+	        studente2.aggiungiEsame(new Esame("Informatica", 27));
+	        studente2.aggiungiEsame(new Esame("Chimica", 25));
+
+	        Studente studente3 = new Studente("Marco", "Verdi", 103);
+	        studente3.aggiungiEsame(new Esame("Storia", 24));
+	        studente3.aggiungiEsame(new Esame("Geografia", 26));
+	        facolta.aggiungiStudente(studente1);
+	        facolta.aggiungiStudente(studente2);
+	        facolta.aggiungiStudente(studente3);
+
+	        do {
+	            System.out.println("\nMenu:");
+	            System.out.println("1. Aggiungi studente");
+	            System.out.println("2. Rimuovi studente");
+	            System.out.println("3. Cerca studente");
+	            System.out.println("4. Cambia matricola");
+	            System.out.println("5. Aggiungi esame");
+	            System.out.println("6. Stampa tutti gli studenti");
+	            System.out.println("0. Esci");
+	            System.out.print("Scegli un'opzione: ");
+	            scelta = scanner.nextInt();
+	            scanner.nextLine();
+
+	            switch (scelta) {
+	                case 1:
+	                    System.out.print("Nome: ");
+	                    String nome = scanner.nextLine();
+	                    System.out.print("Cognome: ");
+	                    String cognome = scanner.nextLine();
+	                    System.out.print("Matricola: ");
+	                    int matricola = scanner.nextInt();
+	                    facolta.aggiungiStudente(new Studente(nome, cognome, matricola));
+	                    break;
+	                case 2:
+	                    System.out.print("Nome: ");
+	                    nome = scanner.nextLine();
+	                    System.out.print("Cognome: ");
+	                    cognome = scanner.nextLine();
+	                    if (facolta.rimuoviStudente(nome, cognome)) {
+	                        System.out.println("Studente rimosso.");
+	                    } else {
+	                        System.out.println("Studente non trovato.");
+	                    }
+	                    break;
+	                case 3:
+	                    System.out.print("Nome: ");
+	                    nome = scanner.nextLine();
+	                    System.out.print("Cognome: ");
+	                    cognome = scanner.nextLine();
+	                    Studente studente = facolta.cercaStudente(nome, cognome);
+	                    if (studente != null) {
+	                        System.out.println(studente);
+	                    } else {
+	                        System.out.println("Studente non trovato.");
+	                    }
+	                    break;
+	                case 4:
+	                    System.out.print("Nome: ");
+	                    nome = scanner.nextLine();
+	                    System.out.print("Cognome: ");
+	                    cognome = scanner.nextLine();
+	                    System.out.print("Nuova matricola: ");
+	                    matricola = scanner.nextInt();
+	                    if (facolta.cambiaMatricola(nome, cognome, matricola)) {
+	                        System.out.println("Matricola aggiornata.");
+	                    } else {
+	                        System.out.println("Studente non trovato.");
+	                    }
+	                    break;
+	                case 5:
+	                    System.out.print("Nome: ");
+	                    nome = scanner.nextLine();
+	                    System.out.print("Cognome: ");
+	                    cognome = scanner.nextLine();
+	                    System.out.print("Nome dell'esame: ");
+	                    String nomeEsame = scanner.nextLine();
+	                    System.out.print("Voto: ");
+	                    int voto = scanner.nextInt();
+	                    if (facolta.aggiungiEsame(nome, cognome, nomeEsame, voto)) {
+	                        System.out.println("Esame aggiunto.");
+	                    } else {
+	                        System.out.println("Studente non trovato.");
+	                    }
+	                    break;
+	                case 6:
+	                    facolta.stampaStudenti();
+	                    break;
+	                case 0:
+	                    System.out.println("Uscita...");
+	                    break;
+	                default:
+	                    System.out.println("Opzione non valida.");
+	            }
+	        } while (scelta != 0);
+
+	        scanner.close();
+	}
+
+}
